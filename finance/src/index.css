@@ -10,6 +10,8 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: #F8FAFC;
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .font-manrope {
@@ -38,6 +40,7 @@ body {
   stroke-opacity: 0.15;
 }
 
+/* ─── Animations ─────────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes fadeInUp {
     from {
@@ -65,6 +68,7 @@ body {
   }
 }
 
+/* ─── Scrollbar ──────────────────────────────────────── */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
@@ -76,4 +80,29 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #E2E8F0;
   border-radius: 10px;
+}
+
+/* ─── Responsive Tweaks ──────────────────────────────── */
+@media (max-width: 1024px) {
+  /* On tablets/mobile, remove left margin since sidebar is overlay */
+  main {
+    margin-left: 0 !important;
+  }
+}
+
+/* Prevent body scroll when mobile sidebar is open */
+body.sidebar-open {
+  overflow: hidden;
+}
+
+/* Table horizontal scroll shadow */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Focus outline for accessibility */
+*:focus-visible {
+  outline: 2px solid #6366F1;
+  outline-offset: 2px;
+  border-radius: 4px;
 }

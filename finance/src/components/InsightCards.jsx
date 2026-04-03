@@ -1,59 +1,18 @@
+import { useFinance } from '../context/FinanceContext';
+
 export default function InsightCards() {
-  const insights = [
-    {
-      title: 'Housing Spike Detected',
-      description: 'Housing costs rose by +5%. AI suggests reviewing contracts for $240 annual savings.',
-      icon: 'insights',
-      badge: 'Optimization',
-      bgColor: 'bg-indigo-50/50',
-      borderColor: 'border-indigo-100',
-      badgeBg: 'bg-indigo-100',
-      badgeText: 'text-indigo-700',
-      iconBg: 'bg-white',
-      iconColor: 'text-indigo-600',
-      confidence: 80,
-      progressColor: 'bg-indigo-500'
-    },
-    {
-      title: 'Goal Performance',
-      description: "Excellent! You've contributed an extra $400 surplus to your primary investment goal this month.",
-      icon: 'stars',
-      badge: 'Milestone',
-      bgColor: 'bg-emerald-50/50',
-      borderColor: 'border-emerald-100',
-      badgeBg: 'bg-emerald-100',
-      badgeText: 'text-emerald-700',
-      iconBg: 'bg-white',
-      iconColor: 'text-emerald-600',
-      hasMilestone: true
-    },
-    {
-      title: 'Subscription Waste',
-      description: 'We found 2 idle subscriptions costing $45/mo. Deactivating these increases cash flow.',
-      icon: 'bolt',
-      badge: 'Alert',
-      bgColor: 'bg-amber-50/50',
-      borderColor: 'border-amber-100',
-      badgeBg: 'bg-amber-100',
-      badgeText: 'text-amber-700',
-      iconBg: 'bg-white',
-      iconColor: 'text-amber-600',
-      hasAction: true,
-      actionText: 'Review Now',
-      actionColor: 'text-amber-600'
-    }
-  ];
+  const { insights } = useFinance();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
       {insights.map((insight) => (
         <div
           key={insight.title}
-          className={`${insight.bgColor} p-8 rounded-3xl ${insight.borderColor} border hover-card-effect flex flex-col gap-6 relative group`}
+          className={`${insight.bgColor} p-6 sm:p-8 rounded-3xl ${insight.borderColor} border hover-card-effect flex flex-col gap-4 sm:gap-6 relative group`}
         >
           <div className="flex items-center justify-between">
-            <div className={`w-11 h-11 ${insight.iconBg} ${insight.iconColor} rounded-2xl flex items-center justify-center shadow-soft border ${insight.borderColor}/50`}>
-              <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+            <div className={`w-10 h-10 sm:w-11 sm:h-11 ${insight.iconBg} ${insight.iconColor} rounded-2xl flex items-center justify-center shadow-soft border ${insight.borderColor}/50`}>
+              <span className="material-symbols-outlined text-xl sm:text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
                 {insight.icon}
               </span>
             </div>
@@ -63,10 +22,10 @@ export default function InsightCards() {
           </div>
 
           <div>
-            <h6 className="font-extrabold text-lg text-on-surface mb-2 tracking-tight">
+            <h6 className="font-extrabold text-base sm:text-lg text-on-surface mb-2 tracking-tight">
               {insight.title}
             </h6>
-            <p className="text-sm text-on-surface-variant font-medium leading-relaxed">
+            <p className="text-xs sm:text-sm text-on-surface-variant font-medium leading-relaxed">
               {insight.description}
             </p>
           </div>
@@ -74,7 +33,10 @@ export default function InsightCards() {
           {insight.confidence && (
             <div className="mt-auto flex items-center gap-2">
               <div className="flex-1 h-1.5 bg-indigo-100 rounded-full overflow-hidden">
-                <div className={`w-3/4 h-full ${insight.progressColor}`}></div>
+                <div
+                  className={`h-full ${insight.progressColor} rounded-full transition-all duration-700`}
+                  style={{ width: `${insight.confidence}%` }}
+                ></div>
               </div>
               <span className="text-[10px] font-bold text-indigo-600">
                 {insight.confidence}% Conf.
